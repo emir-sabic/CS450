@@ -1,6 +1,5 @@
-// screens/HomeScreen.js
 import React, { useState, useEffect } from 'react';
-import { View, Text, FlatList, TouchableOpacity, StyleSheet, Button } from 'react-native';
+import { View, Text, FlatList, TouchableOpacity, StyleSheet, Image, Dimensions } from 'react-native';
 import axios from 'axios';
 
 const APP_ID = 'e8941a60';
@@ -12,7 +11,6 @@ const HomeScreen = ({ navigation }) => {
   const [recipes, setRecipes] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [currentSearchIndex, setCurrentSearchIndex] = useState(0);
 
   useEffect(() => {
     const fetchRecipes = async () => {
@@ -61,9 +59,13 @@ const HomeScreen = ({ navigation }) => {
           keyExtractor={(item) => item.recipe.uri}
           renderItem={({ item }) => (
             <TouchableOpacity style={styles.item} onPress={() => navigation.navigate('RecipeDetails', { recipe: item.recipe })}>
-              <Text style={styles.itemText}>{item.recipe.label}</Text>
+              <Image source={{ uri: item.recipe.image }} style={styles.image} />
+              <View style={styles.textContainer}>
+                <Text style={styles.itemText}>{item.recipe.label}</Text>
+              </View>
             </TouchableOpacity>
           )}
+          contentContainerStyle={styles.flatListContent}
         />
       )}
     </View>
@@ -75,19 +77,32 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 16,
     backgroundColor: '#fff',
-    justifyContent: 'center',
-    alignItems: 'center',
+  },
+  flatListContent: {
+    paddingBottom: 16,
   },
   item: {
+    flexDirection: 'row',
+    alignItems: 'center',
     padding: 16,
     marginVertical: 8,
     backgroundColor: '#f8f8f8',
     borderRadius: 8,
-    width: '100%',
+    width: Dimensions.get('window').width - 32, // Ensure the item width fits within the screen
+  },
+  image: {
+    width: 100,
+    height: 100,
+    borderRadius: 8,
+    marginRight: 16,
+  },
+  textContainer: {
+    flex: 1,
   },
   itemText: {
     fontSize: 18,
     fontWeight: 'bold',
+    flexShrink: 1,
   },
 });
 
