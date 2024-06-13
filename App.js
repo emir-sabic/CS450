@@ -32,7 +32,7 @@ function App() {
             tabBarIcon: ({ focused, color, size }) => {
               let iconName;
 
-              if (route.name === 'Reciepe App') {
+              if (route.name === 'Recipe App') {
                 iconName = focused ? 'home' : 'home-outline';
               } else if (route.name === 'Search') {
                 iconName = focused ? 'search' : 'search-outline';
@@ -50,7 +50,7 @@ function App() {
             tabBarStyle: [{ display: 'flex' }, null],
           })}
         >
-          <Tab.Screen name="Reciepe App" component={HomeStack}/>
+          <Tab.Screen name="Recipe App" component={HomeStack}/>
           <Tab.Screen name="Search" component={SearchScreen} options={{ headerTitle: 'Recipe App' }} />
           <Tab.Screen name="Favorites" component={FavoritesScreen} options={{ headerTitle: 'Recipe App' }} />
           <Tab.Screen name="ShoppingList" component={ShoppingListScreen} options={{ headerTitle: 'Recipe App' }} />
